@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SmartPark</string>
+    <string name="title_activity_occ">occ</string>
+    <string name="image_slider">image</string>
+</resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "499609889776",
+    "project_id": "smartpark-61ccf",
+    "storage_bucket": "smartpark-61ccf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499609889776:android:d87a6397a8911956b0cb35",
+        "android_client_info": {
+          "package_name": "com.example.wazitoecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDPKzzd0ptur-ZRwIuBkaVWSSOaXIOUCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

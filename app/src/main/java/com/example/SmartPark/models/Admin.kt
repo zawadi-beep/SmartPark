@@ -1,6 +1,6 @@
 package com.example.SmartPark.models
 
-class Renter {
+class Admin {
 
         var name:String = ""
         var email:String = ""

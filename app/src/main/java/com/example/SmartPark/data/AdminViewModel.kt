@@ -4,17 +4,18 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
-import com.example.SmartPark.models.User
-import com.example.SmartPark.navigation.DASHBOARD_URL
-import com.example.SmartPark.navigation.LOGIN_URL
-import com.example.SmartPark.navigation.SIGNUP_URL
+import com.example.SmartPark.models.Admin
+import com.example.SmartPark.navigation.ADD_SPACES_URL
+import com.example.SmartPark.navigation.RENTER_URL
+import com.example.SmartPark.navigation.RSIGNUP_URL
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class AuthViewModel(var navController: NavController, var context:Context) {
-    val mAuth:FirebaseAuth
-    val progress:ProgressDialog
+class AdminViewModel(var navController: NavController, var context: Context) {
+
+    val mAuth: FirebaseAuth
+    val progress: ProgressDialog
 
     init {
         mAuth = FirebaseAuth.getInstance()
@@ -25,19 +26,19 @@ class AuthViewModel(var navController: NavController, var context:Context) {
     fun signup(name:String, email:String, password:String,){
         progress.show()
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            var userId = mAuth.currentUser!!.uid
-            var userProfile = User(name, email, password, userId)
-            // Create a reference table called Users inside of the Firebase database
-            var usersRef = FirebaseDatabase.getInstance().getReference()
-                .child("Users/$userId")
-            usersRef.setValue(userProfile).addOnCompleteListener {
+            var adminId = mAuth.currentUser!!.uid
+            var adminProfile = Admin(name, email, password, adminId)
+            // Create a reference table called Admin inside of the Firebase database
+            var adminRef = FirebaseDatabase.getInstance().getReference()
+                .child("Admin/$adminId")
+            adminRef.setValue(adminProfile).addOnCompleteListener {
                 progress.dismiss()
                 if (it.isSuccessful){
                     Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
-                    navController.navigate(LOGIN_URL)
+                    navController.navigate(RENTER_URL)
                 }else{
                     Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                    navController.navigate(SIGNUP_URL)
+                    navController.navigate(RSIGNUP_URL)
                 }
             }
         }
@@ -49,18 +50,19 @@ class AuthViewModel(var navController: NavController, var context:Context) {
             progress.dismiss()
             if (it.isSuccessful){
                 Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
-                navController.navigate(DASHBOARD_URL)
+                navController.navigate(ADD_SPACES_URL)
             }else{
                 Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                navController.navigate(LOGIN_URL)
+                navController.navigate(RENTER_URL)
             }
         }
     }
 
     fun logout(){
         mAuth.signOut()
-        navController.navigate(LOGIN_URL)
+        navController.navigate(RENTER_URL)
     }
 
     fun isLoggedIn(): Boolean = mAuth.currentUser != null
+
 }

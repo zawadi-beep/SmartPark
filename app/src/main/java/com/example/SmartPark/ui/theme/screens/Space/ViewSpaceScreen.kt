@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +33,7 @@ import com.example.SmartPark.models.Space
 
 @Composable
 fun ViewSpaceScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
+    Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         var context = LocalContext.current
@@ -49,7 +51,7 @@ fun ViewSpaceScreen(navController:NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "All products",
+            Text(text = "All Spaces",
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Cursive,
                 color = Color.Red)
@@ -58,7 +60,7 @@ fun ViewSpaceScreen(navController:NavHostController) {
 
             LazyColumn(){
                 items(spaces){
-                    GroceryItem(
+                    SpaceItem(
                         Spacename = it.name,
                         Spacequantity = it.quantity,
                         Spaceprice = it.price,
@@ -75,7 +77,7 @@ fun ViewSpaceScreen(navController:NavHostController) {
 
 
 @Composable
-fun GroceryItem(
+fun SpaceItem(
     Spacename: String, Spacequantity: String, Spaceprice: String, id: String,
     navController: NavHostController,
      spaceImage: String, spaceRepository: SpaceViewModel

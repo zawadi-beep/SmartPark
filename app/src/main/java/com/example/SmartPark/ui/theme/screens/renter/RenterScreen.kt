@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.SmartPark.data.AuthViewModel
+import com.example.SmartPark.data.AdminViewModel
 import com.example.SmartPark.navigation.ADD_SPACES_URL
 import com.example.SmartPark.navigation.RSIGNUP_URL
 import com.example.SmartPark.ui.theme.Purple2
@@ -84,7 +84,7 @@ fun RenterScreen(navController: NavController) {
         Row {
             Button(onClick = {
                 // HANDLE LOGIN LOGIC //val
-                var xyz = AuthViewModel(navController, context)
+                var xyz = AdminViewModel(navController, context)
                 xyz.login(email.text,password.text)
                 navController.navigate(ADD_SPACES_URL)
 

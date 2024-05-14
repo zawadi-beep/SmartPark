@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
-class SpaceViewModel(var navController:NavHostController, var context: Context) {
+class  SpaceViewModel(var navController:NavHostController, var context: Context) {
     var authViewModel:AuthViewModel
     var progress:ProgressDialog
     init {

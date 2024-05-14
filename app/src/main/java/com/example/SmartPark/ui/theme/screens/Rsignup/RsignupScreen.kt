@@ -32,10 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.SmartPark.data.AdminViewModel
 import com.example.SmartPark.data.AuthViewModel
-import com.example.SmartPark.navigation.LOGIN_URL
 import com.example.SmartPark.navigation.RENTER_URL
 import com.example.SmartPark.ui.theme.Purple2
 import com.example.wazitoecommerce.R
@@ -96,7 +95,7 @@ fun RsignupScreen(navController: NavController) {
         Row {
             Button(onClick = {
                 // HANDLE SIGNUP LOGIC //
-                var xyz = AuthViewModel(navController, context)
+                var xyz = AdminViewModel(navController, context)
                 xyz.signup(email.text.trim(),password.text.trim(),username.text.trim())
 
             }, ) {

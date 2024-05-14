@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,13 +40,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.SmartPark.data.SpaceViewModel
+import com.example.SmartPark.navigation.VIEW_SPACES_URL
 import com.example.SmartPark.ui.theme.Purple2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSpaceScreen(navController:NavHostController){
     Column(
-        modifier = Modifier.background(Purple2).fillMaxSize(),
+        modifier = Modifier.background(Purple2).fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -92,7 +96,7 @@ fun AddSpaceScreen(navController:NavHostController){
         //---------------------IMAGE PICKER START-----------------------------------//
 
         var modifier = Modifier
-        ImagePicker(modifier,context, navController, name.trim(), quantity.trim(), price.trim())
+        ImagePicker(modifier, context, navController, name.trim(), quantity.trim(), price.trim(),)
 
         //---------------------IMAGE PICKER END-----------------------------------//
 
@@ -102,7 +106,15 @@ fun AddSpaceScreen(navController:NavHostController){
 }
 
 @Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, Groceryname:String, Groceryquantity:String, Groceryprice:String) {
+fun ImagePicker(
+    modifier: Modifier = Modifier,
+    context: Context,
+    navController: NavHostController,
+
+    name: String,
+    quantity: String,
+    price: String
+) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -139,7 +151,8 @@ fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: N
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
                 var spaceRepository = SpaceViewModel(navController,context)
-                spaceRepository.uploadSpace(Groceryname, Groceryquantity, Groceryprice,imageUri!!)
+                spaceRepository.uploadSpace(name, quantity, price,imageUri!!)
+                navController.navigate(VIEW_SPACES_URL)
 
 
             }) {

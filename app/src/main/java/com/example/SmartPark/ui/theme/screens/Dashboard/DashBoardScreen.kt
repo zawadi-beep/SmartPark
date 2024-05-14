@@ -32,8 +32,10 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
@@ -1421,7 +1423,7 @@ fun DashBoardScreen(navController: NavController){
 val bottomNavItems = listOf(
     BottomNavItem(
         title = "Home",
-        route="home",
+        route="",
         selectedIcon=Icons.Filled.Home,
         unselectedIcon=Icons.Outlined.Home,
         hasNews = false,
@@ -1437,6 +1439,14 @@ val bottomNavItems = listOf(
         unselectedIcon=Icons.Outlined.Person,
         hasNews = true,
         badges=5
+    ),
+    BottomNavItem(
+        title = "New",
+        route="view_spaces",
+        selectedIcon=Icons.Filled.Star,
+        unselectedIcon=Icons.Outlined.Star,
+        hasNews = true,
+        badges=12
     ),
 
 

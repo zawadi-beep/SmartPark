@@ -1,5 +1,7 @@
 package com.example.SmartPark.models
 
+import androidx.compose.ui.text.input.TextFieldValue
+
 class Admin {
 
         var name:String = ""
@@ -9,10 +11,10 @@ class Admin {
         var phone:String = ""
 
 
-        constructor(name: String, email: String, password: String, id: String) {
-            this.name = name
-            this.email = email
-            this.password = password
+        constructor(name: TextFieldValue, email: TextFieldValue, password: TextFieldValue, id: String) {
+            this.name = name.toString()
+            this.email = email.toString()
+            this.password = password.toString()
             this.id = id
             this.phone = phone
 

@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.SmartPark.data.AdminViewModel
 import com.example.SmartPark.data.AuthViewModel
 import com.example.SmartPark.navigation.LOGIN_URL
 import com.example.SmartPark.ui.theme.Purple2
@@ -71,14 +72,14 @@ fun SignupScreen(navController: NavController) {
 
         var email by remember { mutableStateOf(TextFieldValue("")) }
         var password by remember { mutableStateOf(TextFieldValue("")) }
-        var username by remember { mutableStateOf(TextFieldValue("")) }
-        var phone by remember { mutableStateOf(TextFieldValue("")) }
-        var cartype by remember { mutableStateOf(TextFieldValue("")) }
+        var name by remember { mutableStateOf(TextFieldValue("")) }
+
         var context = LocalContext.current
 
 
 
-
+        TextField(value = name , onValueChange = {name=it}, placeholder = { Text(text = "enter name",color = Color.Black)})
+        Spacer(modifier = Modifier.height(20.dp))
         TextField(value = email , onValueChange = {email=it}, placeholder = { Text(text = "enter email",color = Color.Black)})
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -87,17 +88,16 @@ fun SignupScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        TextField(value = username , onValueChange = {username=it}, placeholder = { Text(text = "enter username",color = Color.Black)})
-        Spacer(modifier = Modifier.height(20.dp))
+
+
 
         Row {
+            val context = LocalContext.current
+            val authViewModel = AuthViewModel(navController, context)
             Button(onClick = {
-                // HANDLE SIGNUP LOGIC //
-                var xyz = AuthViewModel(navController, context)
-                xyz.signup(email.text.trim(),password.text.trim(),username.text.trim())
-
-            }, ) {
-                Text(text = "Signup")
+                authViewModel.signup(name, email, password)
+            }) {
+                Text(text = "Register")
             }
 
             Button(onClick = {

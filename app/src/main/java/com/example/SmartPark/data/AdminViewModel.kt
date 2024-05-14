@@ -3,6 +3,7 @@ package com.example.SmartPark.data
 import android.app.ProgressDialog
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavController
 import com.example.SmartPark.models.Admin
 import com.example.SmartPark.navigation.ADD_SPACES_URL
@@ -23,9 +24,9 @@ class AdminViewModel(var navController: NavController, var context: Context) {
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
     }
-    fun signup(name:String, email:String, password:String,){
+    fun signup(name: TextFieldValue, email: TextFieldValue, password: TextFieldValue,){
         progress.show()
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+        mAuth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnCompleteListener {
             var adminId = mAuth.currentUser!!.uid
             var adminProfile = Admin(name, email, password, adminId)
             // Create a reference table called Admin inside of the Firebase database

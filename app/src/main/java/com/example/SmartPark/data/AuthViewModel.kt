@@ -38,7 +38,7 @@ class AuthViewModel(var navController: NavController, var context:Context) {
                     navController.navigate(LOGIN_URL)
                 }else{
                     Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                    navController.navigate(SIGNUP_URL)
+
                 }
             }
         }
@@ -53,7 +53,7 @@ class AuthViewModel(var navController: NavController, var context:Context) {
                 navController.navigate(DASHBOARD_URL)
             }else{
                 Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                navController.navigate(LOGIN_URL)
+
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.example.SmartPark.models
 
-class Space {
+class Product {
     var name:String = ""
     var quantity:String = ""
     var price:String = ""

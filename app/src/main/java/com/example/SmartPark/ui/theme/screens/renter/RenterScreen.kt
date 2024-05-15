@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -30,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,8 +40,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.SmartPark.data.AdminViewModel
-import com.example.SmartPark.navigation.ADD_SPACES_URL
+import com.example.SmartPark.data.AuthViewModel
+import com.example.SmartPark.navigation.ADD_PRODUCTS_URL
+import com.example.SmartPark.navigation.DASHBOARD_URL
 import com.example.SmartPark.navigation.RSIGNUP_URL
+import com.example.SmartPark.navigation.SIGNUP_URL
 import com.example.SmartPark.ui.theme.Purple2
 import com.example.wazitoecommerce.R
 
@@ -72,33 +78,49 @@ fun RenterScreen(navController: NavController) {
         }
         Text(text = "Login here", fontSize = 30.sp, fontWeight = FontWeight.ExtraBold,  color = Purple2)
 
-        var email by remember { mutableStateOf(TextFieldValue("")) }
-        var password by remember { mutableStateOf(TextFieldValue("")) }
-        var context = LocalContext.current
+        Spacer(modifier = Modifier.height(30.dp))
 
+        var email by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
 
-        TextField(value = email , onValueChange = {email=it}, placeholder = { Text(text = "enter email", color = Purple2)})
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(value = password , onValueChange = {password=it}, placeholder = { Text(text = "enter password", color = Purple2)})
-        Spacer(modifier = Modifier.height(20.dp))
-        Row {
-            Button(onClick = {
-                // HANDLE LOGIN LOGIC //val
-                var xyz = AdminViewModel(navController, context)
-                xyz.login(email.text,password.text)
-                navController.navigate(ADD_SPACES_URL)
+        TextField(
+            value = email,
+            onValueChange = {email = it},
+            label = { Text(text = "Enter email")},
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email
+            )
+        )
 
-            }) {
-                Text(text = "Login")
-            }
+        Spacer(modifier = Modifier.height(30.dp))
+        TextField(
+            value = password,
+            onValueChange = {password = it},
+            label = { Text(text = "Enter password")},
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            )
+        )
 
-            Button(onClick = {
-                navController.navigate(RSIGNUP_URL)
-            }) {
-                Text(text = "No account? Signup")
-            }
+        Spacer(modifier = Modifier.height(30.dp))
+        val context = LocalContext.current
+        val adminViewModel = AdminViewModel(navController, context)
+
+        Button(onClick = {
+            adminViewModel.login(email, password)
+            navController.navigate(ADD_PRODUCTS_URL)
+        }) {
+            Text(text = "Login")
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Button(onClick = {
+            navController.navigate(SIGNUP_URL)
+        }) {
+            Text(text = "Register instead")
         }
     }
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)

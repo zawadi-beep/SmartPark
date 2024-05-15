@@ -6,7 +6,8 @@ import android.widget.Toast
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavController
 import com.example.SmartPark.models.Admin
-import com.example.SmartPark.navigation.ADD_SPACES_URL
+import com.example.SmartPark.navigation.ADD_PRODUCTS_URL
+
 import com.example.SmartPark.navigation.RENTER_URL
 import com.example.SmartPark.navigation.RSIGNUP_URL
 
@@ -39,7 +40,7 @@ class AdminViewModel(var navController: NavController, var context: Context) {
                     navController.navigate(RENTER_URL)
                 }else{
                     Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                    navController.navigate(RSIGNUP_URL)
+
                 }
             }
         }
@@ -51,10 +52,10 @@ class AdminViewModel(var navController: NavController, var context: Context) {
             progress.dismiss()
             if (it.isSuccessful){
                 Toast.makeText(this.context, "Success", Toast.LENGTH_SHORT).show()
-                navController.navigate(ADD_SPACES_URL)
+                navController.navigate(ADD_PRODUCTS_URL)
             }else{
                 Toast.makeText(this.context, "Error", Toast.LENGTH_SHORT).show()
-                navController.navigate(RENTER_URL)
+
             }
         }
     }

@@ -6,10 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.SmartPark.ui.theme.Products.AddProductsScreen
+import com.example.SmartPark.ui.theme.Products.ViewProductsScreen
 import com.example.SmartPark.ui.theme.screens.Dashboard.DashBoardScreen
 import com.example.SmartPark.ui.theme.screens.Rsignup.RsignupScreen
-import com.example.SmartPark.ui.theme.screens.Space.AddSpaceScreen
-import com.example.SmartPark.ui.theme.screens.Space.ViewSpaceScreen
+
 import com.example.SmartPark.ui.theme.screens.Upark.UparkScreen
 import com.example.SmartPark.ui.theme.screens.about.AboutScreen
 import com.example.SmartPark.ui.theme.screens.elgon.ElgonScreen
@@ -122,11 +123,11 @@ fun AppNavHost(
         composable(DASHBOARD_URL){
             DashBoardScreen(navController = navController)
         }
-        composable(ADD_SPACES_URL){
-            AddSpaceScreen(navController = navController)
+        composable(ADD_PRODUCTS_URL){
+            AddProductsScreen(navController = navController)
         }
-        composable(VIEW_SPACES_URL){
-            ViewSpaceScreen(navController = navController)
+        composable(VIEW_PRODUCTS_URL){
+            ViewProductsScreen(navController = navController)
         }
     }
 }

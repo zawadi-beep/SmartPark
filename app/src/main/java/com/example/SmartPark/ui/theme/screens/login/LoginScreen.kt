@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -32,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,33 +77,50 @@ fun LoginScreen(navController: NavController) {
         }
         Text(text = "Login here", fontSize = 30.sp, fontWeight = FontWeight.ExtraBold,  color = Purple2)
 
-        var email by remember { mutableStateOf(TextFieldValue("")) }
-        var password by remember { mutableStateOf(TextFieldValue("")) }
-        var context = LocalContext.current
+        Spacer(modifier = Modifier.height(30.dp))
 
+        var email by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
 
-        TextField(value = email , onValueChange = {email=it}, placeholder = { Text(text = "enter email", color = Purple2)})
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(value = password , onValueChange = {password=it}, placeholder = { Text(text = "enter password", color = Purple2)})
-        Spacer(modifier = Modifier.height(20.dp))
-        Row {
-            Button(onClick = {
-                // HANDLE LOGIN LOGIC //val
-                var xyz = AuthViewModel(navController, context)
-                xyz.login(email.text,password.text)
-                navController.navigate(DASHBOARD_URL)
+        TextField(
+            value = email,
+            onValueChange = {email = it},
+            label = { Text(text = "Enter email")},
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email
+            )
+        )
 
-            }) {
-                Text(text = "Login")
-            }
+        Spacer(modifier = Modifier.height(30.dp))
+        TextField(
+            value = password,
+            onValueChange = {password = it},
+            label = { Text(text = "Enter password")},
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
+            )
+        )
 
-            Button(onClick = {
-                navController.navigate(SIGNUP_URL)
-            }) {
-                Text(text = "No account? Signup")
-            }
+        Spacer(modifier = Modifier.height(30.dp))
+        val context = LocalContext.current
+        val authViewModel = AuthViewModel(navController, context)
+
+        Button(onClick = {
+            authViewModel.login(email, password)
+            navController.navigate(DASHBOARD_URL)
+
+        }) {
+            Text(text = "Login")
+        }
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Button(onClick = {
+            navController.navigate(SIGNUP_URL)
+        }) {
+            Text(text = "Register instead")
         }
     }
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)

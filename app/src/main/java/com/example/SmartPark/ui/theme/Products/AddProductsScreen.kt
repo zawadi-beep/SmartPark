@@ -1,4 +1,4 @@
-package com.example.SmartPark.ui.theme.screens.Space
+package com.example.SmartPark.ui.theme.Products
 
 import android.content.Context
 import android.net.Uri
@@ -6,7 +6,6 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,14 +20,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
@@ -39,53 +36,54 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.SmartPark.data.SpaceViewModel
-import com.example.SmartPark.navigation.VIEW_SPACES_URL
-import com.example.SmartPark.ui.theme.Purple2
+import com.example.SmartPark.data.ProductViewModel
+import com.example.SmartPark.navigation.ROUT_ABOUT
+import com.example.SmartPark.navigation.VIEW_PRODUCTS_URL
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddSpaceScreen(navController:NavHostController){
+fun AddProductsScreen(navController:NavHostController){
     Column(
-        modifier = Modifier.background(Purple2).fillMaxSize().verticalScroll(rememberScrollState()),
+        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Add Available Spaces",
+            text = "Add Spaces",
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Default
+            fontFamily = FontFamily.Cursive
         )
 
-        var name by remember { mutableStateOf("") }
-        var quantity by remember { mutableStateOf("") }
-        var price by remember { mutableStateOf("") }
+        var productName by remember { mutableStateOf("") }
+        var productQuantity by remember { mutableStateOf("") }
+        var productPrice by remember { mutableStateOf("") }
         val context = LocalContext.current
 
         Spacer(modifier = Modifier.height(30.dp))
 
         OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text(text = "Enter Space Identity *",color = Color.White) },
+            value = productName,
+            onValueChange = { productName = it },
+            label = { Text(text = "Space name *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = quantity,
-            onValueChange = { quantity = it },
-            label = { Text(text = "Enter Number Of Spaces Available *",color = Color.White) },
+            value = productQuantity,
+            onValueChange = { productQuantity = it },
+            label = { Text(text = "Space quantity *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = price,
-            onValueChange = { price = it },
-            label = { Text(text = "Enter parking Charges Per Hour",color = Color.White) },
+            value = productPrice,
+            onValueChange = { productPrice = it },
+            label = { Text(text = "Space price *") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
@@ -96,9 +94,10 @@ fun AddSpaceScreen(navController:NavHostController){
         //---------------------IMAGE PICKER START-----------------------------------//
 
         var modifier = Modifier
-        ImagePicker(modifier, context, navController, name.trim(), quantity.trim(), price.trim(),)
+        ImagePicker(modifier,context, navController, productName.trim(), productQuantity.trim(), productPrice.trim())
 
         //---------------------IMAGE PICKER END-----------------------------------//
+
 
 
 
@@ -106,15 +105,7 @@ fun AddSpaceScreen(navController:NavHostController){
 }
 
 @Composable
-fun ImagePicker(
-    modifier: Modifier = Modifier,
-    context: Context,
-    navController: NavHostController,
-
-    name: String,
-    quantity: String,
-    price: String
-) {
+fun ImagePicker(modifier: Modifier = Modifier, context: Context,navController: NavHostController, name:String, quantity:String, price:String) {
     var hasImage by remember { mutableStateOf(false) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -150,13 +141,21 @@ fun ImagePicker(
 
             Button(onClick = {
                 //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-                var spaceRepository = SpaceViewModel(navController,context)
-                spaceRepository.uploadSpace(name, quantity, price,imageUri!!)
-                navController.navigate(VIEW_SPACES_URL)
+                var productRepository = ProductViewModel(navController,context)
+                productRepository.uploadProduct(name, quantity, price,imageUri!!)
 
 
             }) {
                 Text(text = "Upload")
+            }
+            Button(
+                onClick = {
+                    navController.navigate(VIEW_PRODUCTS_URL)
+                },
+            ) {
+                Text(
+                    text = "Select Image"
+                )
             }
         }
     }
@@ -164,8 +163,8 @@ fun ImagePicker(
 
 @Composable
 @Preview(showBackground = true)
-fun AddspacesScreenPreview(){
+fun AddProductsScreenPreview(){
 
-        AddSpaceScreen(navController = rememberNavController())
+        AddProductsScreen(navController = rememberNavController())
 
 }

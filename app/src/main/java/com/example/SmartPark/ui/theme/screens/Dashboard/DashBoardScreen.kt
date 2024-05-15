@@ -236,11 +236,14 @@ fun DashBoardScreen(navController: NavController){
                         }
 
                     }, colors = TopAppBarDefaults.mediumTopAppBarColors(Purple2))
+                    Spacer(modifier =Modifier.height(10.dp) )
 
 
 
                   
-                    Column(modifier = Modifier.background(Color.White).verticalScroll(rememberScrollState())) {
+                    Column(modifier = Modifier
+                        .background(Color.White)
+                        .verticalScroll(rememberScrollState())) {
                         HorizontalPager(
                             count = imageSlider.size,
                             state = pagerState,
@@ -1393,12 +1396,15 @@ fun DashBoardScreen(navController: NavController){
 
                         }
                         Column {
-                            //Lottie Animation
-                            val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.a4))
-                            val progress by animateLottieCompositionAsState(composition)
-                            LottieAnimation(composition, progress,
-                                modifier = Modifier.size(400.dp)
+                            Image(
+                                painter = painterResource(id = R.drawable.car),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .clip(shape = CircleShape)
                             )
+                            Text(text = "Your car's favorite spot, waiting just for you", fontSize = 30.sp)
+                            Spacer(modifier = Modifier.height(50.dp))
 
                         }
                     }
